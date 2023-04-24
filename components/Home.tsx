@@ -22,7 +22,7 @@ function Home() {
       (team) => team.id === selectedTeamId
     );
     const team = allTeams.find((team) => team.id === selectedTeamId);
-    if (!alreadyAdded) setSelectedTeams([...selectedTeams, team]);
+    if (!alreadyAdded) setSelectedTeams([team, ...selectedTeams]);
   };
 
   return (
