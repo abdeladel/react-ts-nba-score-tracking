@@ -5,15 +5,7 @@ import useFetch from '../hooks/useFetch';
 
 const uniqueKey = () => Math.random().toString();
 
-function Team({
-  id,
-  name,
-  full_name,
-  abbreviation,
-  city,
-  conference,
-  division,
-}) {
+function Team({ id, full_name, abbreviation, conference }: Team) {
   const { last12dates, selectedTeams, setSelectedTeams } =
     React.useContext(AppContext);
 
@@ -26,31 +18,31 @@ function Team({
 
   const removeTeam = () =>
     setSelectedTeams(selectedTeams.filter((team) => team.id !== id));
-  const { result, scored, conceded } = React.useMemo(() => {
-    return scores.reduce(
-      (acc, score) => {
-        if (score.home_team.id === id)
-          return {
-            result: [
-              ...acc.result,
-              score.home_team_score > score.visitor_team_score,
-            ],
-            scored: acc.scored + score.home_team_score,
-            conceded: acc.conceded + score.visitor_team_score,
-          };
-        else
-          return {
-            result: [
-              ...acc.result,
-              score.home_team_score > score.visitor_team_score,
-            ],
-            scored: acc.scored + score.home_team_score,
-            conceded: acc.conceded + score.visitor_team_score,
-          };
-      },
-      { result: [], scored: 0, conceded: 0 }
-    );
-  }, [scores]);
+
+  const { result, scored, conceded } = scores.reduce(
+    (acc, score) => {
+      if (score.home_team.id === id)
+        return {
+          result: [
+            ...acc.result,
+            score.home_team_score > score.visitor_team_score,
+          ],
+          scored: acc.scored + score.home_team_score,
+          conceded: acc.conceded + score.visitor_team_score,
+        };
+      else
+        return {
+          result: [
+            ...acc.result,
+            score.home_team_score > score.visitor_team_score,
+          ],
+          scored: acc.scored + score.home_team_score,
+          conceded: acc.conceded + score.visitor_team_score,
+        };
+    },
+    { result: [], scored: 0, conceded: 0 }
+  );
+
   return (
     <div className="card">
       <div className="team-name">
@@ -98,9 +90,7 @@ function Team({
         />
       </div>
       <button id={`results${abbreviation}`} className="bg-green">
-        <Link to={`results/${id}`} state={scores}>
-          See game results {'>>'}
-        </Link>
+        <Link to={`results/${id}`}>See game results {'>>'}</Link>
       </button>
     </div>
   );

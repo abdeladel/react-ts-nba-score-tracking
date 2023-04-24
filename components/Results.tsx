@@ -1,27 +1,23 @@
 import * as React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../App';
 import useFetch from '../hooks/useFetch';
 
 function Results() {
   const { teamCode } = useParams();
+  const { last12dates } = React.useContext(AppContext);
   const team: Team = useFetch(
     `https://free-nba.p.rapidapi.com/teams/${teamCode}`,
     null
   );
-  const last12dates = [];
-  const today = new Date();
-  for (let i = 1; i <= 12; i++) {
-    today.setDate(today.getDate() - 1);
-
-    last12dates.push(today.toISOString().split('T')[0]);
-  }
   const scores: Score[] = useFetch(
     `https://free-nba.p.rapidapi.com/games?page=0&${last12dates.join(
       '&dates[]='
     )}&per_page=12&team_ids[]=${teamCode}`,
     []
   );
+
   if (!team) return null;
   return (
     <div className="card">
