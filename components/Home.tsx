@@ -4,8 +4,9 @@ import useFetch from '../hooks/useFetch';
 import Team from './Team';
 
 function Home() {
-  const allTeams  = useFetch('https://free-nba.p.rapidapi.com/teams', 
-     [],
+  const allTeams: Team[] = useFetch(
+    'https://free-nba.p.rapidapi.com/teams',
+    []
   );
 
   const [selectedTeamId, setSelectedTeamId] = React.useState<number>(null);
@@ -26,17 +27,22 @@ function Home() {
 
   return (
     <React.Fragment>
-      <select onChange={handleChange}>
+      <select onChange={handleChange} id="teamSelect">
+        <option>select a team</option>
         {allTeams.map((team) => (
           <option key={team.id} value={team.id}>
-            {team.name}
+            {team.full_name}
           </option>
         ))}
       </select>
-      <button onClick={addTeam}>Track team</button>
-      {selectedTeams.map((team) => (
-        <Team key={team.id} {...team} />
-      ))}
+      <button id="trackBtn" onClick={addTeam}>
+        Track team
+      </button>
+      <div className="card-container">
+        {selectedTeams.map((team) => (
+          <Team key={team.id} {...team} />
+        ))}
+      </div>
     </React.Fragment>
   );
 }
