@@ -38,8 +38,10 @@ function Results() {
           <b>{score.visitor_team.abbreviation}</b>
         </p>
       ))}
-      <button id="backBtn" className="bg-green btn-lg">
-        <Link to="/">{'<<'} Back to all team stats </Link>
+      <button className="bg-green btn-lg">
+        <Link id="backBtn" to="/">
+          {'<<'} Back to all team stats{' '}
+        </Link>
       </button>
     </div>
   );

@@ -89,8 +89,10 @@ function Team({ id, full_name, abbreviation, conference }: Team) {
           width="150px"
         />
       </div>
-      <button id={`results${abbreviation}`} className="bg-green">
-        <Link to={`results/${id}`}>See game results {'>>'}</Link>
+      <button className="bg-green">
+        <Link id={`results${abbreviation}`} to={`results/${id}`}>
+          See game results {'>>'}
+        </Link>
       </button>
     </div>
   );
