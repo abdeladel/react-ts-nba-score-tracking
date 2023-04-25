@@ -19,7 +19,11 @@ function Team({ id, full_name, abbreviation, conference }: Team) {
   const removeTeam = () =>
     setSelectedTeams(selectedTeams.filter((team) => team.id !== id));
 
-  const { result, scored, conceded } = scores.reduce(
+  const {
+    result,
+    scored,
+    conceded,
+  }: { result: boolean[]; scored: number; conceded: number } = scores.reduce(
     (acc, score) => {
       if (score.home_team.id === id)
         return {
