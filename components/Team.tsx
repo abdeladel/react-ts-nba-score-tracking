@@ -38,10 +38,10 @@ function Team({ id, full_name, abbreviation, conference }: Team) {
         return {
           result: [
             ...acc.result,
-            score.home_team_score > score.visitor_team_score,
+            score.home_team_score < score.visitor_team_score,
           ],
-          scored: acc.scored + score.home_team_score,
-          conceded: acc.conceded + score.visitor_team_score,
+          scored: acc.scored + score.visitor_team_score,
+          conceded: acc.conceded + score.home_team_score,
         };
     },
     { result: [], scored: 0, conceded: 0 }
